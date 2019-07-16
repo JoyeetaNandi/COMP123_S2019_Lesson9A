@@ -12,6 +12,12 @@ namespace COMP123_S2019_Lesson9A
 {
     public partial class CalculatorForm : Form
     {
+        // Class Property
+        public string outputString { get; set; }
+        public float outputValue { get; set; }
+        public bool decimalExists { get; set; }
+
+
         //  <summary>
         // This is the contructor for the CalculatorForm 
         // </summary>
@@ -26,22 +32,104 @@ namespace COMP123_S2019_Lesson9A
         // <param name="e"></param>
         private void CalculatorButton_Click(object sender, EventArgs e)
         {
-            var TheButton = sender as Button;
+            Button TheButton = sender as Button;
+            var tag = TheButton.Tag.ToString();
+            int numericValue = 0;
 
-            int ButtonValue;
-            bool Result = int.TryParse(TheButton.Text, out ButtonValue);
+            bool numericResult = int.TryParse(tag, out numericValue);
 
-            if (Result)
+            if (numericResult)
             {
-                ResultLabel.Text = TheButton.Text;
+                int maxSize = (decimalExists) ? 5 : 3;
+                if (outputString == "0")
+                {
+                    outputString = tag;
+                }
+                else
+                {
+                    if (outputString.Length < maxSize)
+                    {
+                        outputString += tag;
+                    }
+                }
+                ResultLabel.Text = outputString;
             }
             else
             {
-                ResultLabel.Text = "Not a Number(NAN)";
+                    switch(tag)
+                {
+                    case "back":
+                        removeLastCharacterFromResultLabel();
+                        break;
+                    case "done":
+                        finalizeOutput();
+                        break;
+                    case "clear":
+                        ClearNumericKeyboard();
+                        break;
+                    case "decimal":
+                        addDecimalToResultLabel();
+                        break;
+                }
             }
-
-
            
+        }
+
+        private void addDecimalToResultLabel()
+        {
+            if (!decimalExists)
+            {
+                outputString += ".";
+                decimalExists = true;
+            }
+        }
+
+        private void finalizeOutput()
+        {
+            
+            outputValue = float.Parse(outputString);
+            outputValue = (float)(Math.Round(outputValue, 1));
+            if (outputValue < 0.1f)
+            {
+                outputValue = 0.1f;
+            }
+            HeightLabel.Text = outputValue.ToString();
+            ClearNumericKeyboard();
+            NumberButtonTableLayoutPanel.Visible = false;
+        }
+
+        private void removeLastCharacterFromResultLabel()
+        {
+            var lastChar = outputString.Substring(outputString.Length - 1);
+            if (lastChar == ".")
+            {
+                decimalExists = false;
+            }
+            outputString = outputString.Remove(outputString.Length - 1);
+            if (outputString.Length == 0)
+            {
+                outputString = "0";
+            }
+            ResultLabel.Text = outputString;
+        }
+
+        private void ClearNumericKeyboard()
+        {
+            ResultLabel.Text = "0";
+            outputString = "0";
+            outputValue = 0.0f;
+            decimalExists = false;
+        }
+
+        private void CalculatorForm_Load(object sender, EventArgs e)
+        {
+            ClearNumericKeyboard();
+            NumberButtonTableLayoutPanel.Visible = false;
+        }
+
+        private void HeightLabel_Click(object sender, EventArgs e)
+        {
+            NumberButtonTableLayoutPanel.Visible = true;
         }
     }
 }
