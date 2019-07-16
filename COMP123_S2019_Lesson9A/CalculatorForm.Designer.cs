@@ -45,6 +45,8 @@
             this.ResultButton = new System.Windows.Forms.Button();
             this.ZeroButton1 = new System.Windows.Forms.Button();
             this.HeightLabel = new System.Windows.Forms.Label();
+            this.WeightLabel = new System.Windows.Forms.Label();
+            this.AgeLabel = new System.Windows.Forms.Label();
             this.NumberButtonTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -337,14 +339,48 @@
             this.HeightLabel.BackColor = System.Drawing.Color.White;
             this.HeightLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.HeightLabel.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HeightLabel.Location = new System.Drawing.Point(2, 27);
+            this.HeightLabel.Location = new System.Drawing.Point(173, 9);
             this.HeightLabel.Name = "HeightLabel";
             this.HeightLabel.Size = new System.Drawing.Size(129, 45);
             this.HeightLabel.TabIndex = 1;
             this.HeightLabel.Tag = "height";
             this.HeightLabel.Text = "0";
             this.HeightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.HeightLabel.Click += new System.EventHandler(this.HeightLabel_Click);
+            this.HeightLabel.Click += new System.EventHandler(this.ActiveLabel_Click);
+            // 
+            // WeightLabel
+            // 
+            this.WeightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WeightLabel.BackColor = System.Drawing.Color.White;
+            this.WeightLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.WeightLabel.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WeightLabel.Location = new System.Drawing.Point(173, 64);
+            this.WeightLabel.Name = "WeightLabel";
+            this.WeightLabel.Size = new System.Drawing.Size(129, 45);
+            this.WeightLabel.TabIndex = 1;
+            this.WeightLabel.Tag = "weight";
+            this.WeightLabel.Text = "0";
+            this.WeightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.WeightLabel.Click += new System.EventHandler(this.ActiveLabel_Click);
+            // 
+            // AgeLabel
+            // 
+            this.AgeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AgeLabel.BackColor = System.Drawing.Color.White;
+            this.AgeLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AgeLabel.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AgeLabel.Location = new System.Drawing.Point(173, 118);
+            this.AgeLabel.Name = "AgeLabel";
+            this.AgeLabel.Size = new System.Drawing.Size(129, 45);
+            this.AgeLabel.TabIndex = 1;
+            this.AgeLabel.Tag = "age";
+            this.AgeLabel.Text = "0";
+            this.AgeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AgeLabel.Click += new System.EventHandler(this.ActiveLabel_Click);
             // 
             // CalculatorForm
             // 
@@ -352,6 +388,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 441);
             this.Controls.Add(this.NumberButtonTableLayoutPanel);
+            this.Controls.Add(this.AgeLabel);
+            this.Controls.Add(this.WeightLabel);
             this.Controls.Add(this.HeightLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -359,6 +397,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Calculator";
             this.Load += new System.EventHandler(this.CalculatorForm_Load);
+            this.Click += new System.EventHandler(this.CalculatorForm_Click);
             this.NumberButtonTableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -383,6 +422,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label HeightLabel;
+        private System.Windows.Forms.Label WeightLabel;
+        private System.Windows.Forms.Label AgeLabel;
     }
 }
 

@@ -17,6 +17,7 @@ namespace COMP123_S2019_Lesson9A
         public float outputValue { get; set; }
         public bool decimalExists { get; set; }
 
+        public Label ActiveLabel { get; set; }
 
         //  <summary>
         // This is the contructor for the CalculatorForm 
@@ -25,6 +26,26 @@ namespace COMP123_S2019_Lesson9A
         {
             InitializeComponent();
         }
+
+        private void CalculatorForm_Load(object sender, EventArgs e)
+        {
+            ClearNumericKeyboard();
+            ActiveLabel = null;
+            NumberButtonTableLayoutPanel.Visible = false;
+        }
+
+        private void CalculatorForm_Click(object sender, EventArgs e)
+        {
+            NumberButtonTableLayoutPanel.Visible = false;
+
+            ActiveLabel = null;
+            ClearNumericKeyboard();
+            if (ActiveLabel != null)
+            {
+                ActiveLabel.BackColor = Color.White;
+            }
+        }
+
         // <summary>
         // this is the shared event handler for the CalculatorButon click event
         // </summary>
@@ -86,16 +107,21 @@ namespace COMP123_S2019_Lesson9A
 
         private void finalizeOutput()
         {
-            
+            if (outputString == string.Empty)
+            {
+                outputString = "0";
+            }
             outputValue = float.Parse(outputString);
-            outputValue = (float)(Math.Round(outputValue, 1));
+            //outputValue = (float)(Math.Round(outputValue, 1));
             if (outputValue < 0.1f)
             {
                 outputValue = 0.1f;
             }
-            HeightLabel.Text = outputValue.ToString();
+            ActiveLabel.Text = outputValue.ToString();
             ClearNumericKeyboard();
             NumberButtonTableLayoutPanel.Visible = false;
+            ActiveLabel.BackColor = Color.White;
+            ActiveLabel = null;
         }
 
         private void removeLastCharacterFromResultLabel()
@@ -121,15 +147,27 @@ namespace COMP123_S2019_Lesson9A
             decimalExists = false;
         }
 
-        private void CalculatorForm_Load(object sender, EventArgs e)
+        
+        private void ActiveLabel_Click(object sender, EventArgs e)
         {
-            ClearNumericKeyboard();
-            NumberButtonTableLayoutPanel.Visible = false;
+            if (ActiveLabel != null)
+            {
+                ActiveLabel.BackColor = Color.White;
+                ActiveLabel = null;
+            }
+
+            ActiveLabel = sender as Label;
+            ActiveLabel.BackColor = Color.LightBlue;
+
+            NumberButtonTableLayoutPanel.Visible = true;
+
+            if (ActiveLabel.Text != "0")
+            {
+                ResultLabel.Text = ActiveLabel.Text;
+                outputString = ActiveLabel.Text;
+            }
         }
 
-        private void HeightLabel_Click(object sender, EventArgs e)
-        {
-            NumberButtonTableLayoutPanel.Visible = true;
-        }
+        
     }
 }
