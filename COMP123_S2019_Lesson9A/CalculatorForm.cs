@@ -32,6 +32,7 @@ namespace COMP123_S2019_Lesson9A
             ClearNumericKeyboard();
             ActiveLabel = null;
             NumberButtonTableLayoutPanel.Visible = false;
+            Size = new Size(320, 480);
         }
 
         private void CalculatorForm_Click(object sender, EventArgs e)
@@ -166,6 +167,8 @@ namespace COMP123_S2019_Lesson9A
                 ResultLabel.Text = ActiveLabel.Text;
                 outputString = ActiveLabel.Text;
             }
+            NumberButtonTableLayoutPanel.Location = new Point(12, ActiveLabel.Location.Y + 55);
+            NumberButtonTableLayoutPanel.BringToFront();
         }
 
         
