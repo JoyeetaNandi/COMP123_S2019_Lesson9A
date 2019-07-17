@@ -167,10 +167,26 @@ namespace COMP123_S2019_Lesson9A
                 ResultLabel.Text = ActiveLabel.Text;
                 outputString = ActiveLabel.Text;
             }
-            NumberButtonTableLayoutPanel.Location = new Point(12, ActiveLabel.Location.Y + 55);
+            //NumberButtonTableLayoutPanel.Location = new Point(12, ActiveLabel.Location.Y + 55);
             NumberButtonTableLayoutPanel.BringToFront();
+
+            AnimationTimer.Enabled = true;
         }
 
-        
+        private void AnimationTimer_Tick(object sender, EventArgs e)
+        {
+            var currentLocation = NumberButtonTableLayoutPanel.Location;
+
+            //decrement current location of numeric keyboard by 20
+            currentLocation = new Point(currentLocation.X, currentLocation.X - 20);
+            NumberButtonTableLayoutPanel.Location = currentLocation;
+
+            // compare Numeric
+            if (currentLocation.Y <= ActiveLabel.Location.Y + 55)
+            {
+                NumberButtonTableLayoutPanel.Location = new Point(currentLocation.X, ActiveLabel.Location.Y + 55);
+                AnimationTimer.Enabled = false;
+            }
+        }
     }
 }
